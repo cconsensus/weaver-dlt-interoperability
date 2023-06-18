@@ -12,13 +12,13 @@ cp ../artifacts/network$1/passwordFile keys/
 
 #Node-1
 Node=Node-1
-cp ../artifacts/network$1/createKeyFile.js .
+cp ../artifacts/network$1/createKeyFile.js ./createKeyFileNode1.js
 key=`cat $Node/data/key`
-sed -i "s/<AccountPrivateKey>/$key/g" createKeyFile.js
+sed -i "s/<AccountPrivateKey>/$key/g" createKeyFileNode1.js
 touch keys/keyFile_${Node}
-npm install web3
-node createKeyFile.js > keys/keyFile_${Node}
-rm createKeyFile.js
+npm install web3@1.10.0
+node createKeyFileNode1.js > keys/keyFile_${Node}
+#rm createKeyFile.js
 cp ../artifacts/account.toml keys/
 cd networkFiles/keys/
 accountID=`ls -d -1 */ |sed -n '1p'`  # For Node-1
@@ -33,13 +33,13 @@ cd ../
 
 #Node-2
 Node=Node-2
-cp ../artifacts/network$1/createKeyFile.js .
+cp ../artifacts/network$1/createKeyFile.js ./createKeyFileNode2.js
 key=`cat $Node/data/key`
-sed -i "s/<AccountPrivateKey>/$key/g" createKeyFile.js
+sed -i "s/<AccountPrivateKey>/$key/g" createKeyFileNode2.js
 touch keys/keyFile_${Node}
 #npm install web3
-node createKeyFile.js > keys/keyFile_${Node}
-rm createKeyFile.js
+node createKeyFileNode2.js > keys/keyFile_${Node}
+#rm createKeyFile.js
 cp ../artifacts/account.toml keys/
 cd networkFiles/keys/
 accountID=`ls -d -1 */ |sed -n '2p'`   # For Node-2
@@ -55,13 +55,13 @@ cd ../
 
 #Node-3
 Node=Node-3
-cp ../artifacts/network$1/createKeyFile.js .
+cp ../artifacts/network$1/createKeyFile.js ./createKeyFileNode3.js
 key=`cat $Node/data/key`
-sed -i "s/<AccountPrivateKey>/$key/g" createKeyFile.js
+sed -i "s/<AccountPrivateKey>/$key/g" createKeyFileNode3.js
 touch keys/keyFile_${Node}
 #npm install web3
-node createKeyFile.js > keys/keyFile_${Node}
-rm createKeyFile.js
+node createKeyFileNode3.js > keys/keyFile_${Node}
+#rm createKeyFile.js
 cp ../artifacts/account.toml keys/
 cd networkFiles/keys/
 accountID=`ls -d -1 */ |sed -n '3p'` # For Node-3
@@ -77,13 +77,13 @@ cd ../
 
 #Node-1
 Node=Node-4
-cp ../artifacts/network$1/createKeyFile.js .
+cp ../artifacts/network$1/createKeyFile.js ./createKeyFileNode4.js
 key=`cat $Node/data/key`
-sed -i "s/<AccountPrivateKey>/$key/g" createKeyFile.js
+sed -i "s/<AccountPrivateKey>/$key/g" createKeyFileNode4.js
 touch keys/keyFile_${Node}
 #npm install web3
-node createKeyFile.js > keys/keyFile_${Node}
-rm createKeyFile.js
+node createKeyFileNode4.js > keys/keyFile_${Node}
+#rm createKeyFile.js
 cp ../artifacts/account.toml keys/
 cd networkFiles/keys/
 accountID=`ls -d -1 */ |sed -n '4p'`   # For Node-4

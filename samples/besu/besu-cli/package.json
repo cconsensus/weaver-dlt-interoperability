@@ -18,7 +18,8 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "checkBalanceBobBesuAccout": "./bin/besu-cli asset get-balance --network=network2 --account=1"
   },
   "files": [
     "tsconfig.json",

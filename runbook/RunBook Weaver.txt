@@ -8,6 +8,23 @@ FABRIC
 
 CONFIGURE NETWORK FABRIC TEST
 
+# protos-js
+configurar .npmrc e chave do github
+
+# Instal protoc
+sudo apt install protobuf-compiler
+
+# make protos-js
+cd common/protos-js
+make build
+
+# compilar sdks/fabric/interoperation-node-sdk
+configurar .npmrc e chave do github
+
+#
+
+make build-local
+
 cd tests/network-setups/fabric/dev
 
 make start-interop-local CHAINCODE_NAME=simpleasset
@@ -24,21 +41,65 @@ cp .npmrc.template .npmrc
 export GITHUB_TOKEN=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
 sed -i "s/<personal-access-token>/$GITHUB_TOKEN/g" .npmrc
 cat .npmrc
-npm install
+make build-local
 
 ~/weaver-dlt-interoperability/
 cd samples/fabric/fabric-cli
+
 echo ${GITHUB_WORKSPACE}
 cp config.template.json config.json
 sed -i "s#<PATH-TO-WEAVER>#${GITHUB_WORKSPACE}#g" config.json
 cat config.json 
 cp .env.template .env
+
+./bin/fabric-cli config set-file ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/config.json
 ./bin/fabric-cli env set MEMBER_CREDENTIAL_FOLDER ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/src/data/credentials_docker
+./bin/fabric-cli env set CONFIG_PATH ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/config.json
 cat .env
 
-./bin/fabric-cli env set CONFIG_PATH ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/config.json
+# SUBIR A REDE
+#OBS: docker-compose é usado (scripts antigos)
+# install docker-compse script (old docker-compose)
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-# Set Init Asset 
+# RODAR REDE FABRIC
+make start-interop-local CHAINCODE_NAME=simpleasset
+# Set Init Asset
+./scripts/initAsset.sh
+
+###### RODAR REDE BESU
+
+#COMPILAR protos-sol
+cd common/protos-sol
+make build
+configurar .nvmrc com token github (copia de outro dir já configurado)
+
+# COMPILAR BESU CLI
+cd samples/besu/besu-cli
+make build-local
+./bin/besu-cli
+Welcome to your CLI
+
+#INSTALAR BESU BINARIOS
+wget https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/22.7.0/besu-22.7.0.zip
+          unzip besu-22.7.0.zip
+          export PATH="${PWD}/besu-22.7.0/bin:$PATH"
+          wget https://artifacts.consensys.net/public/ethsigner/raw/names/ethsigner.zip/versions/22.1.3/ethsigner-22.1.3.zip
+          unzip ethsigner-22.1.3.zip
+          export PATH="${PWD}/ethsigner-22.1.3/bin:$PATH
+
+# depois com os binários no path
+cd tests/network-setups/besu
+make start
+make test
+
+# BESU - DEPLOY DOS CONTRATOS
+cd samples/besu/simpleasset
+make deploy-contracts
+
+# Inicializar assets (configura config template)
+cp  samples/besu/besu-cli/config.template.json samples/besu/besu-cli/config.json
 ./scripts/initAsset.sh
 
 # TRANSFER ASSET 

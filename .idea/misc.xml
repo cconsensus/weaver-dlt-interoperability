@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/common/protos-java-kt" />
+    <file type="web" url="file://$PROJECT_DIR$/core/drivers/corda-driver" />
+    <file type="web" url="file://$PROJECT_DIR$/core/network/corda-interop-app" />
+    <file type="web" url="file://$PROJECT_DIR$/samples/corda/corda-simple-application" />
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SuppressKotlinCodeStyleNotification">
+    <option name="disableForAll" value="true" />
+  </component>
+</project>

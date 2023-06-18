@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/common/protos-java-kt" />
+        <option name="gradleJvm" value="semeru-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/common/protos-java-kt" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/core/drivers/corda-driver" />
+        <option name="gradleJvm" value="semeru-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/core/drivers/corda-driver" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/core/network/corda-interop-app" />
+        <option name="gradleJvm" value="semeru-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/core/network/corda-interop-app" />
+            <option value="$PROJECT_DIR$/core/network/corda-interop-app/interop-contracts" />
+            <option value="$PROJECT_DIR$/core/network/corda-interop-app/interop-workflows" />
+            <option value="$PROJECT_DIR$/core/network/corda-interop-app/test-cordapp" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/samples/corda/corda-simple-application" />
+        <option name="gradleJvm" value="semeru-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/samples/corda/corda-simple-application" />
+            <option value="$PROJECT_DIR$/samples/corda/corda-simple-application/clients" />
+            <option value="$PROJECT_DIR$/samples/corda/corda-simple-application/contracts-kotlin" />
+            <option value="$PROJECT_DIR$/samples/corda/corda-simple-application/workflows-kotlin" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/samples/corda/fungible-house-token" />
+        <option name="gradleJvm" value="jbr-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/samples/corda/fungible-house-token" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/sdks/corda" />
+        <option name="gradleJvm" value="semeru-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/sdks/corda" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/tests/network-setups/corda/dev/Corda_Network" />
+        <option name="gradleJvm" value="jbr-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/tests/network-setups/corda/dev/Corda_Network" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/tests/network-setups/corda/dev/Corda_Network2" />
+        <option name="gradleJvm" value="jbr-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/tests/network-setups/corda/dev/Corda_Network2" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
