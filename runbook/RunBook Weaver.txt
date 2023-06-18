@@ -1,0 +1,150 @@
+FABRIC
+
+*** instalar todas as dependencias.
+**clone repo
+**link: https://github.com/hyperledger-labs/weaver-dlt-interoperability
+**open project
+
+
+CONFIGURE NETWORK FABRIC TEST
+
+cd tests/network-setups/fabric/dev
+
+make start-interop-local CHAINCODE_NAME=simpleasset
+
+
+CONFIGURE FABRIC-CLI
+
+cd ~/weaver-dlt-interoperability/
+export GITHUB_WORKSPACE=$PWD
+echo ${GITHUB_WORKSPACE}
+
+cd samples/fabric/fabric-cli
+cp .npmrc.template .npmrc
+export GITHUB_TOKEN=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
+sed -i "s/<personal-access-token>/$GITHUB_TOKEN/g" .npmrc
+cat .npmrc
+npm install
+
+~/weaver-dlt-interoperability/
+cd samples/fabric/fabric-cli
+echo ${GITHUB_WORKSPACE}
+cp config.template.json config.json
+sed -i "s#<PATH-TO-WEAVER>#${GITHUB_WORKSPACE}#g" config.json
+cat config.json 
+cp .env.template .env
+./bin/fabric-cli env set MEMBER_CREDENTIAL_FOLDER ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/src/data/credentials_docker
+cat .env
+
+./bin/fabric-cli env set CONFIG_PATH ${GITHUB_WORKSPACE}/samples/fabric/fabric-cli/config.json
+
+# Set Init Asset 
+./scripts/initAsset.sh
+
+# TRANSFER ASSET 
+./bin/fabric-cli asset exchange-all --network1=network1 --network2=network2 --secret=secrettext --timeout-duration=100 bob:bond01:a04:alice:token1:100 &> tmp.out
+
+cat tmp.out 
+
+cp tmp.out 001_asset_exchenge.log
+tail -n 2 tmp.out | grep "Asset Exchange Complete." && COUNT=$(( COUNT + 1 )) && echo "PASS"
+
+
+BESU
+cd ~/weaver-dlt-interoperability/
+
+cd common/protos-sol/
+make build
+sudo apt install -y tmux jq
+cd ~/weaver-dlt-interoperability/
+cd tests/network-setups/besu
+wget https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/22.7.0/besu-22.7.0.zip
+unzip besu-22.7.0.zip
+export PATH="${PWD}/besu-22.7.0/bin:$PATH"
+wget https://artifacts.consensys.net/public/ethsigner/raw/names/ethsigner.zip/versions/22.1.3/ethsigner-22.1.3.zip
+unzip ethsigner-22.1.3.zip
+export PATH="${PWD}/ethsigner-22.1.3/bin:$PATH"
+make start
+sleep 100
+
+cd ~/weaver-dlt-interoperability/
+cd samples/besu/simpleasset
+make deploy-contracts 
+echo $GITHUB_TOKEN
+cd ../besu-cli/
+cp .npmrc.template .npmrc
+sed -i "s/<personal-access-token>/$GITHUB_TOKEN/g" .npmrc
+cat .npmrc
+make build
+--verficar se está no path correto
+./scripts/initAsset.sh 
+
+ 
+
+CASE EXCHANGE FABRIC/BESU
+link: https://labs.hyperledger.org/weaver-dlt-interoperability/docs/external/getting-started/interop/asset-exchange/fabric-besu
+
+FABRIC
+cd samples/fabric/fabric-cli/
+./bin/fabric-cli hash --hash_fn=SHA256 secrettext
+./scripts/getAssetStatus.sh
+./bin/fabric-cli asset exchange lock --timeout-duration=3600 --locker=alice --recipient=bob --hashBase64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs= --target-network=network1 --param=bond01:a03
+./bin/fabric-cli asset exchange is-locked --locker=alice --recipient=bob --target-network=network1 --param=bond01:a03
+./bin/fabric-cli asset exchange claim --recipient=bob --locker=alice --target-network=network1 --param=bond01:a03 --secret=secrettext
+./scripts/getAssetStatus.sh
+
+BESU
+cd samples/besu/besu-cli/
+./bin/besu-cli asset get-balance --network=network2 --account=1
+./bin/besu-cli asset get-balance --network=network2 --account=2
+./bin/besu-cli asset lock --network=network2 --sender_account=2 --recipient_account=1 --amount=10 --timeout=1800 --hash_base64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs=
+./bin/besu-cli asset is-locked --network=network2 --lock_contract_id=8896d9a6131911854d4b60af33bdbd43c405ed7fda27f2d744fdd69705fb2b27
+./bin/besu-cli asset claim --network=network2 --recipient_account=1 --preimage=secrettext --lock_contract_id=8896d9a6131911854d4b60af33bdbd43c405ed7fda27f2d744fdd69705fb2b27
+./bin/besu-cli asset get-balance --network=network2 --account=1
+./bin/besu-cli asset get-balance --network=network2 --account=2
+
+
+
+Modos de Interoperabilidade Testados:
+* Asset Exchange
+  - FABRIC with FABRIC
+  - BESU with BESU
+  - FABRIC with BESU
+
+#  fabric-cli, gere o par de hash secreto usando o seguinte comando (imprime hash em base64):
+./bin/fabric-cli hash --hash_fn=SHA256 secrettext
+
+#  verificar o status dos ativos de títulos pertencentes a alicee bobna rede Fabric network1 da samples/fabric/fabric-clipasta:
+./scripts/getAssetStatus.sh
+
+# besu-cli, para verificar o status dos ativos pertencentes a Alice e Bob na rede Besu network2:
+./bin/besu-cli asset get-balance --network=network2 --account=1
+./bin/besu-cli asset get-balance --network=network2 --account=2
+
+# adicionar Alice bloqueio bond01:a03por 60 minutos: bob network1
+./bin/fabric-cli asset exchange lock --timeout-duration=3600 --locker=alice --recipient=bob --hashBase64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs= --target-network=network1 --param=bond01:a03
+
+# verificar alice bloqueio de:
+./bin/fabric-cli asset exchange is-locked --locker=alice --recipient=bob --target-network=network1 --param=bond01:a03
+
+# Bob locking 10 unidades de token BobERC20 para Alice na network2 por 30 minutus. 
+# Devemos capiturar o Lock contract ID: no retorno do comando abaixo 
+./bin/besu-cli asset lock --network=network2 --sender_account=2 --recipient_account=1 --amount=10 --timeout=1800 --hash_base64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs=
+
+# Verificar o bloquei de Bob
+./bin/besu-cli asset is-locked --network=network2 --lock_contract_id=<contract-id-2>
+
+# Execute o seguinte para acionar alice a solicitação de 10 unidades de BobERC20 tokens bloqueadas por Bob na network2:
+./bin/besu-cli asset claim --network=network2 --recipient_account=1 --preimage=secrettext --lock_contract_id=<contract-id-2>
+
+
+# Execute o seguinte para acionar Bob reivindicação de bond01:a03 bloqueado por alicein network1:
+./bin/fabric-cli asset exchange claim --recipient=bob --locker=alice --target-network=network1 --param=bond01:a03 --secret=secrettext
+
+
+# Execute o seguinte para verificar o status dos ativos de títulos pertencentes a Alice e Bob na rede Fabric network1  no diretório /samples/fabric-cli:
+./scripts/getAssetStatus.sh
+
+# Execute o seguinte em besu-cli, para verificar o status dos ativos pertencentes a Alicee Bob na rede Besu network2:
+./bin/besu-cli asset get-balance --network=network2 --account=1
+./bin/besu-cli asset get-balance --network=network2 --account=2
