@@ -121,7 +121,7 @@ npm run GWIClaimAssetOfAliceToBob
 ```
 ![passo09](images/passo09_clain_asset_of_alice_to_bob.png)
 
-# GWI / Alice / Bob verifica o status dos ativos de títulos pertencentes a Alice e Bob na rede Fabric network1  no diretório /samples/fabric-cli:
+# 10 - GWI / Alice / Bob verifica o status dos ativos de títulos pertencentes a Alice e Bob na rede Fabric network1  no diretório /samples/fabric-cli:
 ```bash
 ./scripts/getAssetStatus.sh
 ```
@@ -131,7 +131,7 @@ npm run GWICheckAssetStatus
 ```
 ![passo10](images/passo10_asset_chanche_ownership.png)
 
-# GWI / Alice / Bob Execute o seguinte em besu-cli, para verificar o status dos ativos pertencentes a Alicee Bob na rede Besu network2:
+# 11 - GWI / Alice / Bob Execute o seguinte em besu-cli, para verificar o status dos ativos pertencentes a Alicee Bob na rede Besu network2:
 ```bash
 ./bin/besu-cli asset get-balance --network=network2 --account=1
 ./bin/besu-cli asset get-balance --network=network2 --account=2
