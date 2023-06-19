@@ -19,7 +19,11 @@
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
     "coverage": "jest --coverage",
-    "checkBalanceBobBesuAccout": "./bin/besu-cli asset get-balance --network=network2 --account=1"
+    "GWICheckBalanceBobAccount": "./bin/besu-cli asset get-balance --network=network2 --account=1",
+    "GWICheckBalanceAliceAccount": "./bin/besu-cli asset get-balance --network=network2 --account=2",
+    "GWILockUnitsFromBobToAliceERC20": "./bin/besu-cli asset lock --network=network2 --sender_account=2 --recipient_account=1 --amount=10 --timeout=1800 --hash_base64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs=",
+    "GWIVerifyLockBobsAccountContract": "./bin/besu-cli asset is-locked --network=network2 --lock_contract_id=$LOCKCONTRACTID",
+    "GWIClaimBobsTokens": "./bin/besu-cli asset claim --network=network2 --recipient_account=1 --preimage=secrettext --lock_contract_id=$LOCKCONTRACTID"
   },
   "files": [
     "tsconfig.json",

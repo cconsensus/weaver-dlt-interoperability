@@ -20,7 +20,12 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "GWIGenerateSecretHash": "./bin/fabric-cli hash --hash_fn=SHA256 secrettext",
+    "GWICheckAssetStatus": "./scripts/getAssetStatus.sh",
+    "GWILockAssetAliceToBobHyperledgerFabric": "./bin/fabric-cli asset exchange lock --timeout-duration=3600 --locker=alice --recipient=bob --hashBase64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs= --target-network=network1 --param=bond01:a03",
+    "GWIVerifyAliceToBobAssetLockHyperledgerFabric": "./bin/fabric-cli asset exchange is-locked --locker=alice --recipient=bob --target-network=network1 --param=bond01:a03",
+    "GWIClaimAssetOfAliceToBob": "./bin/fabric-cli asset exchange claim --recipient=bob --locker=alice --target-network=network1 --param=bond01:a03 --secret=secrettext"
   },
   "files": [
     "tsconfig.json",
