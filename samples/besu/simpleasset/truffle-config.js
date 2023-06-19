@@ -5,7 +5,7 @@ module.exports = {
 			port: 9544, // 7545 - default for Ganache
 			network_id: "1338", // 4447 - default for Ganache
 			//type: "fabric-evm",
-			from: "0x0350A34E2361d08F14c2957F6199111EE5354d2B",
+			from: "0x0171B7dB136270c0A63647EBfbFe0518D6cA8e47",
 			gasPrice: 0,
 			gas: "0x1ffffffffffffe",
 			verbose: true, // helps with debugging contract deployment issues
