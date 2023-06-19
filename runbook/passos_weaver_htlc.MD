@@ -101,7 +101,7 @@ npm run GWIVerifyLockBobsAccountContract
 ```
 ![passo07](images/passo07_verifica_lock_status.png)
 
-# 8 - GWI Claim Hyperledger Besu - GWI sabendo dos LOCKS nas duas redes, inicia a exchange: Ssolicitação de 10 unidades de BobERC20 tokens bloqueadas por Bob na network2 (Hyperledger Besu):
+# 8 - GWI Claim Hyperledger Besu - GWI sabendo dos LOCKS nas duas redes, inicia a exchange: solicitação de 10 unidades de BobERC20 tokens bloqueadas por Bob na network2 (Hyperledger Besu):
 ```bash
 ./bin/besu-cli asset claim --network=network2 --recipient_account=1 --preimage=secrettext --lock_contract_id=$LOCKCONTRACTID
 ```
