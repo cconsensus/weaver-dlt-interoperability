@@ -43,13 +43,13 @@ Os dois atores possuem contas (wallets) nas duas redes destinos, então o que ac
 ```bash
 ./bin/fabric-cli asset exchange lock --timeout-duration=3600 --locker=alice --recipient=bob --hashBase64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs= --target-network=network1 --param=bond01:a03
 ```
-![passo05](runbook/images/1_Alice_Lock_Asset_Para_Bob.png)
+![passo05](images/1_Alice_Lock_Asset_Para_Bob.png)
 
 # 6 - GWI Verifica se Lock ocorreu corretamente:
 ```bash
 ./bin/fabric-cli asset exchange is-locked --locker=alice --recipient=bob --target-network=network1 --param=bond01:a03
 ```
-![passo06](runbook/images/2_Alice_Verifica_Lock.png)
+![passo06](images/2_Alice_Verifica_Lock.png)
 
 # 7 - GWI executa LOCK Hyperledger Besu: Bob locking 10 unidades de token BobERC20 para Alice na network2 por 30 minutos. 
 
@@ -57,26 +57,26 @@ Os dois atores possuem contas (wallets) nas duas redes destinos, então o que ac
 ```bash
 ./bin/besu-cli asset lock --network=network2 --sender_account=2 --recipient_account=1 --amount=10 --timeout=1800 --hash_base64=ivHErp1x4bJDKuRo6L5bApO/DdoyD/dG0mAZrzLZEIs=
 ```
-![passo07](runbook/images/3_Bob_locka_10_para_aline_besu.png)
+![passo07](images/3_Bob_locka_10_para_aline_besu.png)
 
 
 # 8 - GWI Verifica Hyperledger Besu Lock ERC20 BC$ (BobCoins)
 ```bash
 ./bin/besu-cli asset is-locked --network=network2 --lock_contract_id=<contract-id-2>
 ```
-![passo08](runbook/images/4_Verificar_Lock_Rede_Besu_Bob.png)
+![passo08](images/4_Verificar_Lock_Rede_Besu_Bob.png)
 
 # 9 - GWI Claim Hyperledger Besu- GWI sabendo dos LOCKS nas duas redes, inicia a exchange: Ssolicitação de 10 unidades de BobERC20 tokens bloqueadas por Bob na network2 (Hyperledger Besu):
 ```bash
 ./bin/besu-cli asset claim --network=network2 --recipient_account=1 --preimage=secrettext --lock_contract_id=<contract-id-2>
 ```
-![passo09](runbook/images/5_Alice_Claim_Solicita_valores_com_secret.png)
+![passo09](images/5_Alice_Claim_Solicita_valores_com_secret.png)
 
 # 10 - GWI Claim Hyperledger Fabric - Reivindicação para BOB de bond01:a03 bloqueado por Alince network1 Hyperledger Fabric:
 ```bash
 ./bin/fabric-cli asset exchange claim --recipient=bob --locker=alice --target-network=network1 --param=bond01:a03 --secret=secrettext
 ```
-![passo10](runbook/images/6_Bob_Reclama_Asset_Alice_Rede_Fabric.png)
+![passo10](images/6_Bob_Reclama_Asset_Alice_Rede_Fabric.png)
 # GWI / Alice / Bob verifica o status dos ativos de títulos pertencentes a Alice e Bob na rede Fabric network1  no diretório /samples/fabric-cli:
 ```bash
 ./scripts/getAssetStatus.sh
